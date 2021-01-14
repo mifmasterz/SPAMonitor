@@ -43,10 +43,11 @@ namespace SpaMonitor
             setup();
         }
         static bool IsEmpty = true;
-        GHI.Glide.Display.Window MainWindow;
-        GHI.Glide.UI.Image img;
-        GHI.Glide.UI.Button btn;
-        GHI.Glide.UI.TextBlock txt;
+        static GHI.Glide.Display.Window MainWindow;
+        static GHI.Glide.UI.Image img;
+        static GHI.Glide.UI.Button btn;
+        static GHI.Glide.UI.TextBlock txt;
+        static Bitmap picAvail, picNotAvail; 
         void setup()
         {
             //7" Displays
@@ -69,7 +70,7 @@ namespace SpaMonitor
             {
                 PowerState.RebootDevice(false);
             }
-            CapacitiveTouchController.Initialize(GHI.Pins.FEZCobraII.Socket1.Pin3);
+            CapacitiveTouchController.Initialize(GHI.Pins.FEZCobraII.Socket4.Pin3);
             GlideTouch.Initialize();
 
             MainWindow = GlideLoader.LoadWindow(Resources.GetString(Resources.StringResources.Form1));
@@ -79,10 +80,15 @@ namespace SpaMonitor
             GT.Picture pic = new GT.Picture(Resources.GetBytes(Resources.BinaryResources.empty), GT.Picture.PictureEncoding.JPEG);
             img.Bitmap = pic.MakeBitmap();
             Glide.MainWindow = MainWindow;
-            btn.TapEvent += btn_TapEvent;
+            btn.ReleaseEvent += btn_ReleaseEvent; 
             Glide.FitToScreen = true;
-            Thread th1 = new Thread(new ThreadStart(LoopButton));
-            th1.Start();
+            //Thread th1 = new Thread(new ThreadStart(LoopButton));
+            //th1.Start();
+        }
+
+        void btn_ReleaseEvent(object sender)
+        {
+            changeState();
         }
 
         void LoopButton()
@@ -98,19 +104,29 @@ namespace SpaMonitor
         }
         void changeState()
         {
-            GT.Picture pic;
+            Bitmap bmp;
             IsEmpty = !IsEmpty;
             if (IsEmpty)
             {
-                pic = new GT.Picture(Resources.GetBytes(Resources.BinaryResources.empty), GT.Picture.PictureEncoding.JPEG);
+                if (picAvail == null)
+                {
+                    var temp = new GT.Picture(Resources.GetBytes(Resources.BinaryResources.empty), GT.Picture.PictureEncoding.JPEG);
+                    picAvail = temp.MakeBitmap();
+                }
+                bmp = picAvail;
                 txt.Text = "Available";
             }
             else
             {
-                pic = new GT.Picture(Resources.GetBytes(Resources.BinaryResources.full), GT.Picture.PictureEncoding.JPEG);
+                if (picNotAvail == null)
+                {
+                    var temp = new GT.Picture(Resources.GetBytes(Resources.BinaryResources.full), GT.Picture.PictureEncoding.JPEG);
+                    picNotAvail = temp.MakeBitmap();
+                }
+                bmp = picNotAvail;
                 txt.Text = "Being Used";
             }
-            img.Bitmap = pic.MakeBitmap();
+            img.Bitmap = bmp;
             img.Invalidate();
             txt.Invalidate();
           

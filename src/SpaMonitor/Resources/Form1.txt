@@ -1,6 +1,6 @@
 <Glide Version="1.0.7">
   <Window Name="window1" Width="800" Height="480" BackColor="DFDFDF">
-    <TextBlock Name="teksJudul" X="41" Y="22" Width="700" Height="90" Alpha="255" Text="Gravicode SPA" TextAlign="Center" TextVerticalAlign="Middle" Font="9" FontColor="464646" BackColor="000000" ShowBackColor="False"/>
+    <TextBlock Name="teksJudul" X="50" Y="22" Width="700" Height="90" Alpha="255" Text="Gravicode SPA" TextAlign="Center" TextVerticalAlign="Middle" Font="9" FontColor="464646" BackColor="000000" ShowBackColor="False"/>
     <TextBlock Name="txtStatus" X="95" Y="117" Width="600" Height="100" Alpha="255" Text="Available" TextAlign="Center" TextVerticalAlign="Middle" Font="9" FontColor="FFFFFF" BackColor="616A6B" ShowBackColor="True"/>
     <Image Name="img" X="95" Y="226" Width="600" Height="180" Alpha="255"/>
     <Button Name="BtnChange" X="285" Y="415" Width="224" Height="50" Alpha="255" Text="Ubah Status" Font="6" FontColor="000000" DisabledFontColor="808080" TintColor="000000" TintAmount="0"/>
