@@ -39,6 +39,8 @@
   <!-- Everything below here is custom to .NET MF / Gadgeteer template-->
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
+    <Compile Include="drivers\CapTouchDriver.cs" />
+    <Compile Include="drivers\TouchDriver.cs" />
     <Compile Include="Program.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -70,6 +72,7 @@
     </Reference>
     <Reference Include="Microsoft.SPOT.Graphics" />
     <Reference Include="Microsoft.SPOT.Hardware" />
+    <Reference Include="Microsoft.SPOT.IO" />
     <Reference Include="Microsoft.SPOT.Native" />
     <Reference Include="Microsoft.SPOT.Net" />
     <Reference Include="Microsoft.SPOT.TinyCore" />

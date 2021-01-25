@@ -16,6 +16,7 @@ using Microsoft.SPOT.Hardware;
 using GHI.Glide.Geom;
 using GHI.Processor;
 using Gadgeteer.Modules.GHIElectronics;
+using BogTechFlush;
 
 namespace SpaMonitor
 {
@@ -47,9 +48,13 @@ namespace SpaMonitor
         static GHI.Glide.UI.Image img;
         static GHI.Glide.UI.Button btn;
         static GHI.Glide.UI.TextBlock txt;
-        static Bitmap picAvail, picNotAvail; 
+        static Bitmap picAvail, picNotAvail;
+        static I2CDevice i2cDevice;
+        static CapTouchDriver CapDriver;
+
         void setup()
         {
+            /*
             //7" Displays
             Display.Width = 800;
             Display.Height = 480;
@@ -69,8 +74,61 @@ namespace SpaMonitor
             if (Display.Save())      // Reboot required?
             {
                 PowerState.RebootDevice(false);
+            }*/
+            Display.Width = 800;
+
+            Display.Height = 480;
+
+            Display.HorizontalSyncPulseWidth = 1;
+
+            Display.HorizontalBackPorch = 88;
+
+            Display.HorizontalFrontPorch = 40;
+
+            Display.VerticalSyncPulseWidth = 3;
+
+            Display.VerticalBackPorch = 32;
+
+            Display.VerticalFrontPorch = 13;
+
+            Display.PixelClockRateKHz = 25000;
+
+            Display.OutputEnableIsFixed = true;
+
+            Display.OutputEnablePolarity = true;
+
+            Display.HorizontalSyncPolarity = false;
+
+            Display.VerticalSyncPolarity = false;
+
+            Display.PixelPolarity = true;
+
+            Display.Type = Display.DisplayType.Lcd;
+
+
+
+            if (Display.Save())      // Reboot required?
+            {
+
+                PowerState.RebootDevice(false);
+
             }
-            CapacitiveTouchController.Initialize(GHI.Pins.FEZCobraII.Socket4.Pin3);
+
+            //init touch
+            
+            i2cDevice = new I2CDevice(new I2CDevice.Configuration(0x38, 400));
+
+            CapDriver = new CapTouchDriver(i2cDevice);
+
+            CapDriver.SetBacklightTime(0);
+
+            CapDriver.ResetBacklight();
+            
+ 
+
+            //CapacitiveTouchController.Initialize(GHI.Pins.G120.P2_21);
+            
+            //CapacitiveTouchController.Initialize(GHI.Pins.FEZCobraII.Socket4.Pin3);
             GlideTouch.Initialize();
 
             MainWindow = GlideLoader.LoadWindow(Resources.GetString(Resources.StringResources.Form1));
