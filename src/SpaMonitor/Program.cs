@@ -124,7 +124,7 @@ namespace SpaMonitor
 
             CapDriver.ResetBacklight();
             
- 
+            
 
             //CapacitiveTouchController.Initialize(GHI.Pins.G120.P2_21);
             

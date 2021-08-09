@@ -55,9 +55,9 @@ namespace BogTechFlush
             //
             // Using interrupt (for G120)
             //
-            touchPin = new InterruptPort(GHI.Pins.G120.P0_25, false, Port.ResistorMode.PullUp, Port.InterruptMode.InterruptEdgeLow);
+            //touchPin = new InterruptPort(GHI.Pins.G120.P0_25, false, Port.ResistorMode.PullUp, Port.InterruptMode.InterruptEdgeLow);
            
-            //touchPin = new InterruptPort(GHI.Pins.G120.P2_21, false, Port.ResistorMode.PullUp, Port.InterruptMode.InterruptEdgeLow);
+            touchPin = new InterruptPort(GHI.Pins.G120.P2_21, false, Port.ResistorMode.PullUp, Port.InterruptMode.InterruptEdgeLow);
             touchPin.OnInterrupt += touchPin_OnInterrupt;
             //
             // Create thread the handle the backlight timeout
